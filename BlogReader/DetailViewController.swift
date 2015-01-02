@@ -10,9 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
     var blogPostTitle: String?
-    var blogPostURL: NSURL = NSURL()
-    
-    @IBOutlet weak var showTitle: UILabel!
+    var blogPostUrl: NSURL = NSURL()
+    @IBOutlet weak var webView: UIWebView!
     
     func configureView() {
         // Update the user interface for the detail item.
@@ -23,7 +22,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.title = blogPostTitle
-        //        webView?.loadRequest(NSURLRequest(URL: blogPostUrl))
+        webView?.loadRequest(NSURLRequest(URL: blogPostUrl))
         
     }
     

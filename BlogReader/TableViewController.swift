@@ -11,8 +11,7 @@ import Foundation
 
 class TableViewController: UITableViewController {
     var blogPosts = [BlogPost]()
-    @IBOutlet var appsTableView : UITableView?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +34,7 @@ class TableViewController: UITableViewController {
             blogPost.author = bpDictionary["author"] as? String
             blogPost.thumbnail = bpDictionary["thumbnail"] as? String
             blogPost.date = bpDictionary["date"] as? String
-            blogPost.url = bpDictionary["url"] as? NSURL
+            blogPost.url = NSURL(string: bpDictionary["url"] as String)
             blogPosts.append(blogPost)
         }
         
@@ -59,7 +58,8 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        
         let blogPost = blogPosts[indexPath.row]
         
         cell.textLabel?.text = blogPost.title
@@ -75,6 +75,7 @@ class TableViewController: UITableViewController {
         }
         
         cell.detailTextLabel?.text = "\(blogPost.author!) - \(blogPost.blogPostAge(blogPost.date!))"
+        println(blogPost.url)
         
         return cell
     }
@@ -86,16 +87,12 @@ class TableViewController: UITableViewController {
     //MARK: Table View Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        let tableViewCell = sender as UITableViewCell
-        let indexPath = tableView.indexPathForCell(tableViewCell)!
-        let blogPost = blogPosts[indexPath.row]
-        
-        if segue.identifier == "ShowDetail" {
-            let viewController =  segue.destinationViewController as DetailViewController
-            viewController.blogPostTitle = blogPost.title
-            viewController.blogPostURL = blogPost.url!
+        if segue.identifier == "showDetail" {
+            let indexPath = self.tableView.indexPathForSelectedRow()
+            let blogPost = blogPosts[indexPath!.row]
+            let detailVC = segue.destinationViewController as DetailViewController
+            detailVC.blogPostTitle = blogPost.title!
+            detailVC.blogPostUrl = blogPost.url!
         }
     }
     

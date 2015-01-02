@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="RXx-2L-A4i" detailTextLabel="y4b-7B-fu5" style="IBUITableViewCellStyleSubtitle" id="ymj-x2-Uuq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="RXx-2L-A4i" detailTextLabel="y4b-7B-fu5" style="IBUITableViewCellStyleSubtitle" id="ymj-x2-Uuq">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ymj-x2-Uuq" id="fLA-La-sCE">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -32,6 +32,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ZN5-1e-bsv" kind="show" identifier="showDetail" id="JGz-Gm-jgc"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,8 +59,23 @@
                     <view key="view" contentMode="scaleToFill" id="bQp-BI-8xC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dex-2d-drU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Dex-2d-drU" firstAttribute="top" secondItem="bQp-BI-8xC" secondAttribute="top" id="5w4-ns-SRu"/>
+                            <constraint firstAttribute="trailing" secondItem="Dex-2d-drU" secondAttribute="trailing" id="Pqe-Lu-tfO"/>
+                            <constraint firstItem="3AS-x9-8GU" firstAttribute="top" secondItem="Dex-2d-drU" secondAttribute="bottom" id="Trv-Ig-cDZ"/>
+                            <constraint firstItem="Dex-2d-drU" firstAttribute="leading" secondItem="bQp-BI-8xC" secondAttribute="leading" id="zRJ-XF-61r"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="Dex-2d-drU" id="hpZ-7M-yai"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YtL-Zg-N9R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
