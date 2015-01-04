@@ -20,9 +20,6 @@ class TableViewController: UITableViewController, APIControllerProtocol {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
             self.api.requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/?count=20")
-            dispatch_async(dispatch_get_main_queue()) {
-                self.tableView.reloadData()
-            }
         }
         
         
@@ -38,9 +35,7 @@ class TableViewController: UITableViewController, APIControllerProtocol {
     //MARK: API Controller Protocol
     
     func didReceiveAPIResults() {
-        dispatch_async(dispatch_get_main_queue()) {
-            println("dispatch in session there are \(self.api.blogPosts.count) blog posts")
-            
+        dispatch_async(dispatch_get_main_queue()) {            
             self.tableView.reloadData()
         }
         
