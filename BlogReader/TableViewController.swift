@@ -12,16 +12,10 @@ import Foundation
 class TableViewController: UITableViewController {
     var blogPosts = [BlogPost]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/")
-        
-    }
-    
     func requestBlogPostsFromJSON(myurl: String) {
         let url = NSURL(string: myurl)
         let jsonData = NSData(contentsOfURL: url!)
+        
         var error: NSError?
         
         let dataDictionary = NSJSONSerialization.JSONObjectWithData(jsonData!, options: nil, error: &error) as NSDictionary
@@ -36,9 +30,19 @@ class TableViewController: UITableViewController {
             blogPost.date = bpDictionary["date"] as? String
             blogPost.url = NSURL(string: bpDictionary["url"] as String)
             blogPosts.append(blogPost)
-        }
+        }        
         
     }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/")
+        
+    }
+        
+
     
     
     
