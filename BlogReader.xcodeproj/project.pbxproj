@@ -16,6 +16,7 @@
 		276CF9751A57167800C8D38F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CF9741A57167800C8D38F /* DetailViewController.swift */; };
 		276CF9791A57169400C8D38F /* TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CF9771A57169400C8D38F /* TimeAgo.swift */; };
 		276CF97A1A57169400C8D38F /* BlogPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276CF9781A57169400C8D38F /* BlogPost.swift */; };
+		27DEFD0C1A599C70004B6E03 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DEFD0B1A599C70004B6E03 /* APIController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		276CF9741A57167800C8D38F /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		276CF9771A57169400C8D38F /* TimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeAgo.swift; sourceTree = "<group>"; };
 		276CF9781A57169400C8D38F /* BlogPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogPost.swift; sourceTree = "<group>"; };
+		27DEFD0B1A599C70004B6E03 /* APIController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				276CF9721A57165F00C8D38F /* TableViewController.swift */,
+				27DEFD0B1A599C70004B6E03 /* APIController.swift */,
 				276CF9741A57167800C8D38F /* DetailViewController.swift */,
+				276CF9771A57169400C8D38F /* TimeAgo.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -133,7 +137,6 @@
 		276CF97B1A57169900C8D38F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				276CF9771A57169400C8D38F /* TimeAgo.swift */,
 				276CF9781A57169400C8D38F /* BlogPost.swift */,
 			);
 			name = Models;
@@ -241,6 +244,7 @@
 			files = (
 				276CF97A1A57169400C8D38F /* BlogPost.swift in Sources */,
 				276CF9751A57167800C8D38F /* DetailViewController.swift in Sources */,
+				27DEFD0C1A599C70004B6E03 /* APIController.swift in Sources */,
 				276CF9531A57162100C8D38F /* AppDelegate.swift in Sources */,
 				276CF9791A57169400C8D38F /* TimeAgo.swift in Sources */,
 				276CF9731A57165F00C8D38F /* TableViewController.swift in Sources */,

@@ -38,7 +38,15 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/")
+        self.tableView.reloadData()
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+            self.requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/?count=20")
+            dispatch_async(dispatch_get_main_queue()) {
+                self.tableView.reloadData()
+            }
+        }
+        
         
     }
         
