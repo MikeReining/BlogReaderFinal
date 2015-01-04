@@ -9,55 +9,17 @@
 import UIKit
 import Foundation
 
-class TableViewController: UITableViewController {
-    var blogPosts = [BlogPost]()
+class TableViewController: UITableViewController, APIControllerProtocol {
+    var api = APIController()
     
-    
-    func requestBlogPostsFromJSON(myurl: String) {
-        let url = NSURL(string: myurl)
-        let jsonData = NSData(contentsOfURL: url!)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url!, completionHandler: {data, response, error -> Void in
-            println("Task completed")
-            if(error != nil) {
-                // If there is an error in the web request, print it to the console
-                println(error.localizedDescription)
-            }
-                var error: NSError?
-                
-                let dataDictionary = NSJSONSerialization.JSONObjectWithData(jsonData!, options: nil, error: &error) as NSDictionary
 
-                let blogPostArray: Array<NSDictionary> = dataDictionary.objectForKey("posts") as Array
-                println(url!)
-
-                for bpDictionary: NSDictionary in blogPostArray {
-                    var blogPost = BlogPost(id: bpDictionary["id"] as Int)
-                    blogPost.title = bpDictionary["title"] as? String
-                    blogPost.author = bpDictionary["author"] as? String
-                    blogPost.thumbnail = bpDictionary["thumbnail"] as? String
-                    blogPost.date = bpDictionary["date"] as? String
-                    blogPost.url = NSURL(string: bpDictionary["url"] as String)
-                    self.blogPosts.append(blogPost)
-                }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                println("dispatch in session there are \(self.blogPosts.count) blog posts")
-                
-                self.tableView.reloadData()
-            }
-        })
-        task.resume()
-        self.tableView.reloadData()
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.api.delegate = self
         self.tableView.reloadData()
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-            self.requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/?count=20")
+            self.api.requestBlogPostsFromJSON("http://blog.teamtreehouse.com/api/get_recent_summary/?count=20")
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
             }
@@ -67,28 +29,34 @@ class TableViewController: UITableViewController {
     }
         
 
-    
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
+    //MARK: API Controller Protocol
+    
+    func didReceiveAPIResults() {
+        dispatch_async(dispatch_get_main_queue()) {
+            println("dispatch in session there are \(self.api.blogPosts.count) blog posts")
+            
+            self.tableView.reloadData()
+        }
+        
+    }
     
     
-    //MARK: Table View Delegates
+    //MARK: Table View Methods
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blogPosts.count
+        return api.blogPosts.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
-        let blogPost = blogPosts[indexPath.row]
+        let blogPost = api.blogPosts[indexPath.row]
         
         cell.textLabel?.text = blogPost.title
         
@@ -117,7 +85,7 @@ class TableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             let indexPath = self.tableView.indexPathForSelectedRow()
-            let blogPost = blogPosts[indexPath!.row]
+            let blogPost = api.blogPosts[indexPath!.row]
             let detailVC = segue.destinationViewController as DetailViewController
             detailVC.blogPostTitle = blogPost.title!
             detailVC.blogPostUrl = blogPost.url!
